@@ -1,7 +1,11 @@
 <template>
-  <Scene>
+  <Scene v-model="scene">
     <Camera type="arcRotate"></Camera>
-    <Torus :options="{diameter:5, thickness:0.1}" :position="[0, 0, 0]">
+    <Torus
+      v-model="circle"
+      :options="{ diameter: 6, thickness: 0.1 , tessellation:60 }"
+      :position="[0, 0, 0]"
+    >
       <Animation property="rotation.x" :duration="5">
         <Key frame="0%" :value="0"></Key>
         <Key frame="100%" :value="Math.PI * 2"></Key>
@@ -18,7 +22,7 @@
       ></Animation>
       <Material diffuse="#FFF"></Material>
     </Torus>
-    <Torus :options="{diameter:5, thickness:0.1}" :position="[0, 0, 0]">
+    <Torus :options="{ diameter: 6, thickness: 0.1, tessellation:60 }" :position="[0, 0, 0]">
       <Animation property="rotation.x" :duration="5">
         <Key frame="0%" :value="0"></Key>
         <Key frame="100%" :value="Math.PI * 2"></Key>
@@ -42,7 +46,7 @@
         :end="Math.PI * 2"
       ></Animation>
       <!-- Standard Light component props-->
-      <PointLight diffuse="#F0F" :position="[0, 0, 4]"></PointLight>
+      <PointLight diffuse="#FF69B4" :position="[0, 0, 4]"></PointLight>
     </Entity>
     <Entity>
       <Animation
@@ -77,27 +81,18 @@
   </Scene>
 </template>
 <script>
+// import * as BABYLON from "babylonjs";
 export default {
-  data() {
+  data: function () {
     return {
-      box: null,
-      sphere: null,
-      time: performance.now(),
-      frames: 0,
+      circle:null,
+      scene:null,
     };
   },
-
-  computed: {
-    scale() {
-      let a = 2 + Math.cos(this.time * 0.001);
-      let b = 2 + Math.sin(this.time * 0.001);
-      return {
-        box: [a, b, 1],
-        sphere: [b, a, 1],
-      };
-    },
-  },
-
+  // mounted() {
+  //   var hl = new BABYLON.HighlightLayer("hl1", this.scene);
+  //   hl.addMesh(this.circle, BABYLON.Color3.Green());
+  // },
   methods: {},
 };
 </script>
